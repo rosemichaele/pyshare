@@ -1,5 +1,6 @@
 from pyshare.party import Party
 from pyshare.expense import Expense
+from pyshare import exchange_rates
 
 
 class Payment:
@@ -9,3 +10,6 @@ class Payment:
         self.paid_by = paid_by
         self.currency = currency
         self.amount = amount
+
+    def currency_is_supported(self):
+        return exchange_rates.is_supported(self.currency)

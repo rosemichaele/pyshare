@@ -17,10 +17,10 @@ class Group:
         self.parties.append(party)
 
     def add_expense(self, expense):
-        assert isinstance(expense, Expense), "Cannot type {} to list of expenses".format(str(type(expense)))
+        assert isinstance(expense, Expense), "Cannot add type {} to list of expenses".format(str(type(expense)))
         self.expenses.append(expense)
 
     def add_payment(self, payment):
-        assert isinstance(payment, Payment), "Cannot type {} to list of payments".format(str(type(payment)))
+        assert isinstance(payment, Payment), "Cannot add type {} to list of payments".format(str(type(payment)))
         self.payments.append(payment)
 
