@@ -6,7 +6,7 @@ class TestGroup:
 
     @classmethod
     def setup_class(cls):
-        cls.test_group = group.Group(name="Test")
+        cls.test_group = group.Group(name="Test", currency="USD")
         cls.not_a_party = "This is not a party.Party, it's a string."
         cls.test_party = party.Party(name="Michael")
         cls.not_an_expense = ["This is not an expense.Expense, it's a list."]
