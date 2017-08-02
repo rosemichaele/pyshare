@@ -3,6 +3,7 @@
 bin
 lib
 pip-selfcheck.json
+pyvenv.cfg
 *.py[cod]
 *.egg-info
 *.egg
