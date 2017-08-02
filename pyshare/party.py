@@ -16,5 +16,3 @@ class Party:
             return False
         else:
             return True
-
-
