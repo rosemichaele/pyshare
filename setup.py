@@ -81,13 +81,17 @@ setup(
     # Support for Python 3.3 and <4 only
     python_requires='~=3.3',
 
+    # Test requirements
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
+
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': [],
-        'test': ['pytest'],
+        'test': [],
     },
 
     # If there are data files included in your packages that need to be
