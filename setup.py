@@ -1,4 +1,5 @@
-"""A setuptools based setup module.
+"""
+A setuptools based setup module.
 See:
 https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
@@ -17,7 +18,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='pyshare',
+    name='PyShare',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -77,8 +78,8 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[],
 
-    # Support for Python 3 only
-    python_requires='~=3',
+    # Support for Python 3.3 and <4 only
+    python_requires='~=3.3',
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
@@ -86,7 +87,7 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': [],
-        'test': [],
+        'test': ['pytest'],
     },
 
     # If there are data files included in your packages that need to be

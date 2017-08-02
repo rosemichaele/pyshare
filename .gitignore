@@ -2,6 +2,8 @@
 .idea
 bin
 lib
-pyvenv.cfg
 pip-selfcheck.json
-*.pyc
+*.py[cod]
+*.egg-info
+*.egg
+__pycache__/
