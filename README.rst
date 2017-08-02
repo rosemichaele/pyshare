@@ -3,13 +3,16 @@ The PyShare project
 
 This project provides useful tools for sharing expenses between 2 or more people. Python 3 support only.
 
-----
-**Installation**
-:code:`pip install pyshare`
+Installation
+____________
+.. code-block:: bash
 
-----
-**Basic Usage**
+    $ pip install pyshare
 
 
-----
-**What's New**
+Basic Usage
+___________
+
+
+What's New
+__________
