@@ -8,3 +8,4 @@ pyvenv.cfg
 *.egg-info
 *.egg
 __pycache__/
+.cache
