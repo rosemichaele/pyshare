@@ -8,7 +8,10 @@ class Expense:
         self.paid_for = paid_for
         self.currency = currency
         self.amount = amount
-        self.parties_involved = parties_involved or set()
+        if parties_involved:
+            self.parties_involved = parties_involved
+        else:
+            self.parties_involved = set()
 
     def add_party(self, party):
         assert isinstance(party, Party), "Cannot add type {} to list of parties".format(str(type(party)))
