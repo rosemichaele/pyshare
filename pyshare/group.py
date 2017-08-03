@@ -70,13 +70,13 @@ class Group:
         for party in self.parties:
             party_debts[party.name] = dict()
             party_debts[party.name]["currency"] = self.currency
-            party_debts[party.name]["amount"] = 0
+            party_debts[party.name]["debts"] = 0
 
         for expense in self.expenses:
             num_parties_involved = len(expense.parties_involved)
             split_expense = expense.amount / num_parties_involved
             for party in expense.parties_involved:
-                party_debts[party.name]["amount"] += split_expense
+                party_debts[party.name]["debts"] += split_expense
         return party_debts
 
     def consolidated_payments(self) -> dict:
@@ -88,7 +88,7 @@ class Group:
         for party in self.parties:
             party_payments[party.name] = dict()
             party_payments[party.name]["currency"] = self.currency
-            party_payments[party.name]["debts"] = 0
+            party_payments[party.name]["payments"] = 0
 
         for payment in self.payments:
             party_payments[payment.paid_by.name]["currency"] = self.currency
