@@ -10,9 +10,18 @@ class Group:
                  expenses: "set of expense.Expense" = None, payments: "set of payment.Payment" = None):
         self.name = name
         self.currency = currency
-        self.parties = parties or set()
-        self.expenses = expenses or set()
-        self.payments = payments or set()
+        if parties:
+            self.parties = parties
+        else:
+            self.parties = set()
+        if expenses:
+            self.expenses = expenses
+        else:
+            self.expenses = set()
+        if payments:
+            self.payments = payments
+        else:
+            self.payments = set()
 
     def add_party(self, party):
         assert isinstance(party, Party), "Cannot add type {} to list of parties".format(str(type(party)))
@@ -25,7 +34,7 @@ class Group:
 
     def add_payment(self, payment):
         assert isinstance(payment, Payment), "Cannot add type {} to list of payments".format(str(type(payment)))
-        assert payment.currency_is_supported(), "Invalid currency type {} when adding expense".format(payment.currency)
+        assert payment.currency_is_supported(), "Invalid currency type {} when adding payment".format(payment.currency)
         self.payments.add(payment)
 
     def currency_is_supported(self):
@@ -69,3 +78,19 @@ class Group:
             for party in expense.parties_involved:
                 party_debts[party.name]["amount"] += split_expense
         return party_debts
+
+    def consolidated_payments(self) -> dict:
+        """
+        Determine how much everyone has already paid.
+        """
+        self.standardize_group_payments()
+        party_payments = dict()
+        for party in self.parties:
+            party_payments[party.name] = dict()
+            party_payments[party.name]["currency"] = self.currency
+            party_payments[party.name]["debts"] = 0
+
+        for payment in self.payments:
+            party_payments[payment.paid_by.name]["currency"] = self.currency
+            party_payments[payment.paid_by.name]["payments"] += payment.amount
+        return party_payments
