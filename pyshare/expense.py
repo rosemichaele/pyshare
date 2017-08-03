@@ -18,7 +18,8 @@ class Expense:
         self.parties_involved.add(party)
 
     def remove_party(self, party):
-        self.parties.remove(party)
+        assert self.parties_involved.__contains__(party),  "Cannot remove party, party not present"
+        self.parties_involved.remove(party)
 
     def currency_is_supported(self) -> bool:
         return exchange_rates.is_supported(self.currency)

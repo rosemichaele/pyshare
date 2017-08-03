@@ -28,6 +28,7 @@ class Group:
         self.parties.add(party)
 
     def remove_party(self, party):
+        assert self.parties.__contains__(party),  "Cannot remove party, party not present"
         self.parties.remove(party)
 
     def add_expense(self, expense):
@@ -40,6 +41,7 @@ class Group:
             self.add_party(party)
 
     def remove_expense(self, expense):
+        assert self.expenses.__contains__(expense),  "Cannot remove expense, expense not present"
         self.expenses.remove(expense)
 
     def add_payment(self, payment):
@@ -48,6 +50,7 @@ class Group:
         self.payments.add(payment)
 
     def remove_payment(self, payment):
+        assert self.payments.__contains__(payment),  "Cannot remove payment, payment not present"
         self.payments.remove(payment)
 
     def currency_is_supported(self):
