@@ -31,7 +31,12 @@ def rand_party() -> party.Party:
 
 def rand_expense() -> expense.Expense:
     return expense.Expense(paid_for=random.choice(expense_types), currency=random.choice(currency_types),
-                           amount=random.uniform(1.00, 99.99))
+                           amount=random.uniform(1.00, 999.99))
+
+
+def rand_payment(expense: expense.Expense) -> payment.Payment:
+    return payment.Payment(expense=expense, paid_by=random.choice(party_names), currency=random.choice(currency_types),
+                           amount=random.uniform(1.00, 999.99))
 
 
 class TestGroup:
@@ -83,4 +88,35 @@ class TestGroup:
 
         # Ensure expense party added to group
         assert len(new_group.parties) == 1
+
+    def test_standardize_group_expenses(self):
+        g = rand_group()
+        expenses = {rand_expense(), rand_expense(), rand_expense(), rand_expense()}
+        for e in expenses:
+            g.add_expense(e)
+
+        # Currencies should not match
+        assert not g.currencies_match()
+
+        g.standardize_group_expenses()
+
+        # Now, expense currencies should match that of the group
+        assert g.currencies_match()
+
+    def test_standardize_group_expenses_and_payments(self):
+        g = rand_group()
+        # Add random expenses and linked payments
+        for i in range(5):
+            e = rand_expense()
+            g.add_expense(e)
+            g.add_payment(rand_payment(e))
+
+        # Currencies should not match
+        assert not g.currencies_match()
+
+        g.standardize_group_expenses()
+        g.standardize_group_payments()
+
+        # Now, expense and payment currencies should match that of the group
+        assert g.currencies_match()
 
