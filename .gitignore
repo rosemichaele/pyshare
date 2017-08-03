@@ -9,3 +9,4 @@ pyvenv.cfg
 *.egg
 __pycache__/
 .cache
+data/
