@@ -17,5 +17,8 @@ class Expense:
         assert isinstance(party, Party), "Cannot add type {} to list of parties".format(str(type(party)))
         self.parties_involved.add(party)
 
+    def remove_party(self, party):
+        self.parties.remove(party)
+
     def currency_is_supported(self) -> bool:
         return exchange_rates.is_supported(self.currency)
