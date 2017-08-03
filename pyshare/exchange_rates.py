@@ -12,6 +12,8 @@ def current_exchange_rates(base: str) -> dict:
 
 def conversion_rate(base: str, origin: str) -> float:
     """Return a float which is the conversion rate from origin to base. Both base and origin are 3-char strings."""
+    assert is_supported(base), "Cannot convert to invalid currency type: {}".format(base)
+    assert is_supported(origin), "Cannot convert from invalid currency type: {}".format(origin)
     conversion_key = current_exchange_rates(base)
     return conversion_key["rates"][origin]
 
