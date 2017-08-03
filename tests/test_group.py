@@ -1,5 +1,37 @@
 import pytest
+import random
 from pyshare import group, party, expense, payment
+
+# Create test data.
+
+group_names = ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", 'Juliett',
+               "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango",
+               "Uniform", "Victor", "Whisky", "XRay", "Yankee", "Zulu"]
+
+party_names = ["Michael", "Callie", "Brian", "Robert", "Viki", "Daniel", "Colin", "Trudy", "Beth", 'Rajesh',
+               "Savita", "Lindsay", "Matthew", "Kiel", "Kyle", "Chris", "Carol", "Jason", "Lisa", "Guy",
+               "Kala", "Ricky", "Taylor", "Xavier", "Yvette", "Zane"]
+
+expense_types = ["Rent", "Groceries", "Maintenance", "Hotel", "Cat Litter", "Cable", "Internet", "Credit Card"
+                 "Power", "Dry Cleaning", "Diapers"]
+
+currency_types = ["USD", "EUR", "BRL", "CAD", "GBP", "HRK", "JPY", "NOK", "NZD", "PHP", "RON", "RUB", "TRY", "ZAR"]
+
+
+# Create helper functions for generating random test data.
+
+
+def rand_group() -> group.Group:
+    return group.Group(name=random.choice(group_names), currency=random.choice(currency_types))
+
+
+def rand_party() -> party.Party:
+    return party.Party(name=random.choice(party_names))
+
+
+def rand_expense() -> expense.Expense:
+    return expense.Expense(paid_for=random.choice(expense_types), currency=random.choice(currency_types),
+                           amount=random.uniform(1.00, 99.99))
 
 
 class TestGroup:
@@ -37,4 +69,18 @@ class TestGroup:
     def test_no_error_if_add_payment(self):
         self.test_group.add_payment(self.test_payment)
         assert len(self.test_group.payments) == 1
+
+    def test_add_expense_to_group_also_adds_parties(self):
+        # Set up new data for this test and make sure no parties in group
+        new_group = rand_group()
+        new_expense = rand_expense()
+        new_party = rand_party()
+        assert not new_group.parties
+
+        # Add party to expense, then add expense to group
+        new_expense.add_party(new_party)
+        new_group.add_expense(new_expense)
+
+        # Ensure expense party added to group
+        assert len(new_group.parties) == 1
 

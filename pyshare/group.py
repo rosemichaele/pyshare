@@ -31,6 +31,10 @@ class Group:
         assert isinstance(expense, Expense), "Cannot add type {} to list of expenses".format(str(type(expense)))
         assert expense.currency_is_supported(), "Invalid currency type {} when adding expense".format(expense.currency)
         self.expenses.add(expense)
+        # After adding the expense, we can also add the parties of the expense to the group. This avoids having to
+        # add the parties individually and separately.
+        for party in expense.parties_involved:
+            self.add_party(party)
 
     def add_payment(self, payment):
         assert isinstance(payment, Payment), "Cannot add type {} to list of payments".format(str(type(payment)))
