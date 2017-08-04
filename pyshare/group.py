@@ -6,26 +6,26 @@ from pyshare import exchange_rates
 
 class Group:
 
-    def __init__(self, name: str, currency: str, parties: "set of party.Party" = None,
-                 expenses: "set of expense.Expense" = None, payments: "set of payment.Payment" = None):
+    def __init__(self, name: str, currency: str, parties: "list of party.Party" = None,
+                 expenses: "list of expense.Expense" = None, payments: "list of payment.Payment" = None):
         self.name = name
         self.currency = currency
         if parties:
             self.parties = parties
         else:
-            self.parties = set()
+            self.parties = list()
         if expenses:
             self.expenses = expenses
         else:
-            self.expenses = set()
+            self.expenses = list()
         if payments:
             self.payments = payments
         else:
-            self.payments = set()
+            self.payments = list()
 
     def add_party(self, party):
         assert isinstance(party, Party), "Cannot add type {} to list of parties".format(str(type(party)))
-        self.parties.add(party)
+        self.parties.append(party)
 
     def remove_party(self, party):
         assert self.parties.__contains__(party),  "Cannot remove party, party not present"
@@ -34,7 +34,7 @@ class Group:
     def add_expense(self, expense):
         assert isinstance(expense, Expense), "Cannot add type {} to list of expenses".format(str(type(expense)))
         assert expense.currency_is_supported(), "Invalid currency type {} when adding expense".format(expense.currency)
-        self.expenses.add(expense)
+        self.expenses.append(expense)
         # After adding the expense, we can also add the parties of the expense to the group. This avoids having to
         # add the parties individually and separately.
         for party in expense.parties_involved:
@@ -47,7 +47,7 @@ class Group:
     def add_payment(self, payment):
         assert isinstance(payment, Payment), "Cannot add type {} to list of payments".format(str(type(payment)))
         assert payment.currency_is_supported(), "Invalid currency type {} when adding payment".format(payment.currency)
-        self.payments.add(payment)
+        self.payments.append(payment)
 
     def remove_payment(self, payment):
         assert self.payments.__contains__(payment),  "Cannot remove payment, payment not present"

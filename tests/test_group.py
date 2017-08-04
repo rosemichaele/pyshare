@@ -34,9 +34,9 @@ def rand_expense() -> expense.Expense:
                            amount=random.uniform(1.00, 999.99))
 
 
-def rand_payment(expense: expense.Expense) -> payment.Payment:
-    return payment.Payment(expense=expense, paid_by=random.choice(party_names), currency=random.choice(currency_types),
-                           amount=random.uniform(1.00, 999.99))
+def rand_payment(e: expense.Expense) -> payment.Payment:
+    return payment.Payment(expense=e, paid_by=random.choice(e.parties_involved), currency=e.currency,
+                           amount=e.amount)
 
 
 class TestGroup:
@@ -108,6 +108,7 @@ class TestGroup:
         # Add random expenses and linked payments
         for i in range(5):
             e = rand_expense()
+            e.add_party(rand_party())
             g.add_expense(e)
             g.add_payment(rand_payment(e))
 
